@@ -3,11 +3,16 @@ require('dotenv').config();
 // const { createHandler } = require('graphql-http/lib/use/express');
 const { graphqlHTTP } = require('express-graphql');
 const schema = require('./schema/schema');
-
+// MongoDB Require
+const connectDB = require('./config/db');
 const port = process.env.PORT || 5000;
+
+
 const app = express();
 
-// app.all('/graphql', createHandler({ schema }));
+// Conntect to DB
+connectDB();
+
 app.use(
   '/graphql',
   graphqlHTTP({
