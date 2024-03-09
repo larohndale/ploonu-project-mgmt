@@ -79,7 +79,7 @@ const RootQuery = new GraphQLObjectType({
 });
 
 // Mutations
-const clientMutation = new GraphQLObjectType({
+const RootMutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     // Add Client
@@ -110,13 +110,12 @@ const clientMutation = new GraphQLObjectType({
         return Client.findByIdAndDelete(args.id);
       },
     },
-  },
-});
+  // },
+  // });
 
-// Project Mutations
-const projectMutation = new GraphQLObjectType({
-  name: 'Mutation',
-  fields: {
+  // const projectMutation = new GraphQLObjectType({
+  //   name: 'Mutation',
+  // fields: {
     // Add Project
     addProject: {
       type: ProjectType,
@@ -194,6 +193,5 @@ const projectMutation = new GraphQLObjectType({
 // Export the query to use it later (in the index.js)
 module.exports = new GraphQLSchema({
   query: RootQuery,
-  mutation: clientMutation,
-  mutation: projectMutation,
+  mutation: RootMutation,
 });
