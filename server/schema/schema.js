@@ -107,15 +107,20 @@ const RootMutation = new GraphQLObjectType({
         id: { type: GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
+        Project.find({ clientId: args.id }).then((projects) => {
+          projects.forEach((project) => {
+            project.deleteOne();
+          });
+        });
         return Client.findByIdAndDelete(args.id);
       },
     },
-  // },
-  // });
+    // },
+    // });
 
-  // const projectMutation = new GraphQLObjectType({
-  //   name: 'Mutation',
-  // fields: {
+    // const projectMutation = new GraphQLObjectType({
+    //   name: 'Mutation',
+    // fields: {
     // Add Project
     addProject: {
       type: ProjectType,
@@ -128,7 +133,7 @@ const RootMutation = new GraphQLObjectType({
             values: {
               new: { value: 'Not Started' },
               progress: { value: 'In Progress' },
-              completed: { value: 'Completed' },
+              complete: { value: 'Completed' },
             },
           }),
           defaultValue: 'Not Started',
@@ -168,7 +173,7 @@ const RootMutation = new GraphQLObjectType({
             values: {
               new: { value: 'Not Started' },
               progress: { value: 'In Progress' },
-              completed: { value: 'Completed' },
+              complete: { value: 'Completed' },
             },
           }),
         },
